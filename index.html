@@ -47,19 +47,20 @@
       background: #ffffff;
       border: 1px solid #ccc;
       border-radius: 5px;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
   <h1>Sales Commission Tracker</h1>
 
-  <label for="totalProfit">Total Gross Profit ($)</label>
-  <input type="number" step="0.01" id="totalProfit" placeholder="Enter total profit" />
+  <label for="totalProfit">Total Gross ($)</label>
+  <input type="number" step="0.01" id="totalProfit" placeholder="Enter total gross" />
 
   <label for="totalUnits">Total Units Sold</label>
   <input type="number" step="0.1" id="totalUnits" placeholder="Enter total units sold" />
 
-  <label for="miniDeals">Number of Minis (no profit, $300 flat)</label>
+  <label for="miniDeals">Number of Minis</label>
   <input type="number" step="0.1" id="miniDeals" placeholder="Enter mini deals" />
 
   <button onclick="calculateCommission()">Calculate</button>
@@ -86,12 +87,11 @@
       const totalCommission = commissionFromProfit + miniPay + bonus;
 
       document.getElementById('result').innerHTML = `
-        <strong>Results:</strong><br/>
-        Commission Rate: ${(rate * 100).toFixed(0)}%<br/>
-        Profit-Based Commission: $${commissionFromProfit.toFixed(2)}<br/>
-        Mini Deal Pay: $${miniPay.toFixed(2)}<br/>
-        Bonus: $${bonus.toFixed(2)}<br/>
-        <strong>Total Commission: $${totalCommission.toFixed(2)}</strong>
+Commission Rate: ${(rate * 100).toFixed(0)}%
+Profit-Based Commission: $${commissionFromProfit.toFixed(2)}
+Mini Payout: $${miniPay.toFixed(2)}
+Unit Bonus: $${bonus.toFixed(2)}
+Total Commission: $${totalCommission.toFixed(2)}
       `;
     }
   </script>

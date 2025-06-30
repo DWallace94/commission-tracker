@@ -82,13 +82,15 @@
       const eligibleUnits = units - minis;
       const commissionFromProfit = eligibleUnits > 0 ? profit * rate : 0;
       const miniPay = minis * 300;
-      const totalCommission = commissionFromProfit + miniPay;
+      const bonus = units >= 12 ? 500 : 0;
+      const totalCommission = commissionFromProfit + miniPay + bonus;
 
       document.getElementById('result').innerHTML = `
         <strong>Results:</strong><br/>
         Commission Rate: ${(rate * 100).toFixed(0)}%<br/>
         Profit-Based Commission: $${commissionFromProfit.toFixed(2)}<br/>
         Mini Deal Pay: $${miniPay.toFixed(2)}<br/>
+        Bonus: $${bonus.toFixed(2)}<br/>
         <strong>Total Commission: $${totalCommission.toFixed(2)}</strong>
       `;
     }

@@ -73,21 +73,27 @@
       const units = parseFloat(document.getElementById('totalUnits').value) || 0;
       const minis = parseFloat(document.getElementById('miniDeals').value) || 0;
 
-      let rate = 0.25;
-      if (units >= 16) {
-        rate = 0.35;
-      } else if (units >= 11) {
-        rate = 0.30;
-      }
-
       const eligibleUnits = units - minis;
-      const commissionFromProfit = eligibleUnits > 0 ? profit * rate : 0;
+
+      let tier1Units = Math.min(eligibleUnits, 10);
+      let tier2Units = Math.max(0, Math.min(eligibleUnits - 10, 5));
+      let tier3Units = Math.max(0, eligibleUnits - 15);
+
+      const tier1Commission = profit * (tier1Units / eligibleUnits) * 0.25;
+      const tier2Commission = profit * (tier2Units / eligibleUnits) * 0.30;
+      const tier3Commission = profit * (tier3Units / eligibleUnits) * 0.35;
+
+      const commissionFromProfit = tier1Commission + tier2Commission + tier3Commission;
       const miniPay = minis * 300;
-      const bonus = units >= 12 ? 500 : 0;
+
+      let bonus = 0;
+      if (units >= 11) bonus += 500;
+      if (units >= 15) bonus += 500;
+
       const totalCommission = commissionFromProfit + miniPay + bonus;
 
       document.getElementById('result').innerHTML = `
-Commission Rate: ${(rate * 100).toFixed(0)}%
+Commission Rate: Mixed Tiers (25% / 30% / 35%)
 Profit-Based Commission: $${commissionFromProfit.toFixed(2)}
 Mini Payout: $${miniPay.toFixed(2)}
 Unit Bonus: $${bonus.toFixed(2)}
